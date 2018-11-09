@@ -119,6 +119,18 @@ server.post('/api/action/:id', async (req, res) => {
     }
 });
 
+server.put("/api/action/:id", (req,res)=>{
+    const {id} = req.params;
+    const changes = req.body;
+    actionDb.update(id,changes)
+        .then(action => {
+            res.status(200).json({action : action})
+        })
+        .catch(error => {
+            res.status(500).json(`cannot update the action : ${error}`)
+        })
+})
+
 
 
 module.exports=server;
