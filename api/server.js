@@ -55,6 +55,18 @@ server.post('/api/projects', async (req, res) => {
     }
 });
 
+server.delete('/api/projects/:id', (req,res) => {
+    const { id } = req.params;
+
+    projectDb.remove(id)
+        .then(count => {
+            res.status(201).json({message : `${count} project(s) were deleted`, id : `${id}`})
+        })
+        .catch(error => {
+            res.status(500).json({error : `there was an error deleting the project : ${error}`})
+        })
+})
+
 //   Actions Code
 
 
