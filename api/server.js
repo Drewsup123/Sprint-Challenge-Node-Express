@@ -55,6 +55,18 @@ server.post('/api/projects', async (req, res) => {
     }
 });
 
+server.put("/api/projects/:id", (req,res)=>{
+    const {id} = req.params;
+    const changes = req.body;
+    projectDb.update(id,changes)
+        .then(project => {
+            res.status(200).json({project : project})
+        })
+        .catch(error => {
+            res.status(500).json(`cannot update the post : ${error}`)
+        })
+})
+
 server.delete('/api/projects/:id', (req,res) => {
     const { id } = req.params;
 
