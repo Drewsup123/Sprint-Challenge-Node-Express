@@ -131,6 +131,18 @@ server.put("/api/action/:id", (req,res)=>{
         })
 })
 
+server.delete('/api/action/:id', (req,res) => {
+    const { id } = req.params;
+
+    actionDb.remove(id)
+        .then(count => {
+            res.status(201).json({message : `${count} action(s) were deleted`, id : `${id}`})
+        })
+        .catch(error => {
+            res.status(500).json({error : `there was an error deleting the action : ${error}`})
+        })
+})
+
 
 
 module.exports=server;
