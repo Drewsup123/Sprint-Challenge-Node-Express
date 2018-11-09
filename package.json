@@ -5,7 +5,8 @@
   "dependencies": {
     "express": "^4.16.4",
     "helmet": "^3.15.0",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "sqlite3": "^4.0.3"
   },
   "name": "Sprint-Challenge-Node-Express",
   "description": "- Please open the `Review.md` file and answer the questions.\r - Use Node.js and Express to design and build an API that performs CRUD operations on **projects** and **actions**.",
