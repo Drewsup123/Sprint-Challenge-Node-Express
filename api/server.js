@@ -81,12 +81,43 @@ server.delete('/api/projects/:id', (req,res) => {
 
 //   Actions Code
 
+server.get('/api/action',(req,res)=>{
+    actionDb.get()
+        .then(action => {
+            res.status(200).json(action)
+        })
+        .catch(error => {
+            res.status(500).json("can not find the action ",error)
+        })
+});
 
+server.get("/api/action/:id",(req,res)=>{
+    const { id } = req.params;
+    projectDb.getProjectActions(id)
+        .then(action => {
+            res.status(200).json(action)
+        })
+        .catch(error => {
+            res.status(500).json("Unable to get the action ", error)
+        })
+});
 
-
-
-
-
+server.post('/api/action/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const actionData = {
+            "project_id" : Number(id),//why was this being turned into a string?
+            description : req.body.description,
+            notes : req.body.notes
+        };
+        const actionId = await actionDb.insert(actionData);
+        const action = await actionDb.get(actionId.id);
+        res.status(201).json(action);
+    } catch (error) {
+        let message = 'error creating the action';
+        res.status(500).json({ error: "There was an error while saving the action to the database",errorText : error });
+    }
+});
 
 
 
